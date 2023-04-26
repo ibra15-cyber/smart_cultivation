@@ -159,20 +159,24 @@
         </div>
         </section>
 
-        <section>
-
-        <div class="container-lg background-color()" id="score">
-          <p id="result" class="fw-bold">A performance score of the trained model is : </p>
-          {% if bg_score %}
-          <pre class="text-tiny lead text-center pb-5">
-            {{bg_score}}
-          </pre>
-          {% endif %}
         </div>
-        </section>
 
-        <section>
-          
+      </section>
+
+      <section>
+
+            <div class="container-lg" id="score">
+              <p id="result" class="fw-bold">A performance score of the trained model is : </p>
+              {% if bg_score %}
+              <pre class="text-tiny lead text-center pb-5">
+                {{bg_score}}
+              </pre>
+              {% endif %}
+            </div>
+         
+      </section>
+
+      <section class="pt-3 bg-warning-subtle">   
         <p id="result" class="fw-bold">A report that summarizes the performance of a classification model</p>
         <div class="container-lg" id="report">
           {% if report %}
@@ -183,15 +187,7 @@
         </div>
         </section>
 
-        </div>
 
-      </section>
-
-      <section>
-        <div>
-          <!-- <h1>This is where the scores comes inside ???</h1> -->
-        </div>
-      </section>
       <section>
         <footer class="bg-light text-center text-lg-start" id="about">
           <div class="container p-4">
