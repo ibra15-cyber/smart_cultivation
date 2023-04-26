@@ -163,10 +163,10 @@
 
       </section>
 
-      <section>
+      <section class="justify-content-center text-center">
 
-            <div class="container-lg justify-content-center text-center" id="score">
-              <p id="result" >A performance score of the trained model is : </p>
+            <div class="container-lg" id="score">
+              <p id="result" class="lead">The performance score of the trained model is : </p>
               {% if bg_score %}
               <pre class="text-tiny lead text-center pb-5">
                 {{bg_score}}
@@ -177,7 +177,7 @@
       </section>
 
       <section class="pt-3 bg-warning-subtle">   
-        <p id="result" class="fw-bold">A report that summarizes the performance of a classification model</p>
+        <p id="result" class="fw-bold">A report that summarizes the performance of the classification model</p>
         <div class="container-lg" id="report">
           {% if report %}
           <pre class="text-tiny lead text-center pb-5">
