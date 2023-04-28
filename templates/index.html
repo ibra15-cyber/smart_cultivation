@@ -38,7 +38,7 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#prediction">Prediciton</a>
+                <a class="nav-link" href="#prediction">Prediction</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#score">Model Score</a>
@@ -99,15 +99,15 @@
         >
           <div class="mb-3">
             <label for="N" class="form-label">N:</label>
-            <input type="text" class="form-control" id="N" name="N" min="0.00" max="145.00" />
+            <input type="text" class="form-control" id="N" name="N" min="0.00" max="145.00" placeholder="Enter your values as a percentage ratio" />
           </div>
           <div class="mb-3">
             <label for="P" class="form-label">P:</label>
-            <input type="text" class="form-control" id="P" name="P" min="5.00" max="145.00"/>
+            <input type="text" class="form-control" id="P" name="P" min="5.00" max="145.00" placeholder="Enter your values as a percentage ratio" />
           </div>
           <div class="mb-3">
             <label for="K" class="form-label">K:</label>
-            <input type="text" class="form-control" id="K" name="K" min="5.00" max="205.00" />
+            <input type="text" class="form-control" id="K" name="K" min="5.00" max="205.00" placeholder="Enter your values as a percentage ratio"  />
           </div>
           <div class="mb-3">
             <label for="temperature" class="form-label">Temperature:</label>
@@ -117,6 +117,7 @@
               id="temperature"
               name="temperature"
               min="8.00" max="43.70"
+              placeholder="Enter your values in degree celcius" 
             />
           </div>
           <div class="mb-3">
@@ -127,6 +128,7 @@
               id="humidity"
               name="humidity"
               min="14.00" max="100.00"
+              placeholder="Enter your values as a mm" 
             />
           </div>
           <div class="mb-3">
@@ -141,6 +143,7 @@
               id="rainfall"
               name="rainfall"
               min="20.00" max="298.50"
+              placeholder="Enter your values 0-14" 
             />
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
