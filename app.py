@@ -68,13 +68,17 @@ def index():
         # use the model to generate predictions
         prediction = model.predict(data)
 
+        # added the below lines because i needed the score and classification report
+
         bg_score = bag_model.score(X_test, y_test) #bag_model.score(x_test,y_test) would calculate the mean accuracy of the BaggingClassifier model on the test data x_test and y_test
 
-        predicted = bag_model.predict(X_test) #would generate predicted labels for the test data x_test using the BaggingClassifier model that was trained earlier.
-        report = classification_report(y_test, predicted)
+        y_pred = bag_model.predict(X_test) #would generate predicted labels for the test data x_test using the BaggingClassifier model that was trained earlier.
+        report = classification_report(y_test, y_pred)
+
+        cm = confusion_matrix(y_test, y_pred)
 
 
-        return render_template('index.html', prediction=prediction, report=report, bg_score=bg_score, scroll=True)
+        return render_template('index.html', prediction=prediction, report=report, bg_score=bg_score, cm=cm, scroll=True)
 
     # if the request is a GET request, just render the template without any data
     message = 'Please fill out the form below to generate a prediction.'

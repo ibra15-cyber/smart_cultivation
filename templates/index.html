@@ -47,6 +47,9 @@
                 <a class="nav-link" href="#report">Model Report</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="#cm">Confusion Matrix</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="#about">About Us</a>
               </li>
             </ul>
@@ -188,6 +191,18 @@
           </pre>
           {% endif %}
         </div>
+        </section>
+
+        <section class="bg-light" id="score">
+          <div class="container-lg">
+            <h2 class="display-4 lead text-center pt-3">Model Score</h2>
+                {% if cm %}
+                <pre class="text-tiny lead text-center pb-5">
+                  {{cm}}
+                </pre>
+                {% endif %}
+              </div>
+           
         </section>
 
 
