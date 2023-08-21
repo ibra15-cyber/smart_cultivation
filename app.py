@@ -21,12 +21,12 @@ from sklearn.model_selection import cross_val_score
 model = joblib.load('bagging_classifier.joblib')
 
 ###we want to calculate the score and generate report
-df = pd.read_csv('./crop_recommendation.csv')
-x = df.drop(['label'], axis=1) # our independent variable; removing the label as part of our data and saving the rest as x
+df = pd.read_csv('./Crop_recommendation.csv')
+X = df.drop(['label'], axis=1) # our independent variable; removing the label as part of our data and saving the rest as x
 y = df['label']
 
 #splitting data into train and test
-x_train,x_test,y_train,y_test = model_selection.train_test_split(x,y)
+X_train,X_test,y_train,y_test = model_selection.train_test_split(X,y)
 
 #piping it
 pipe1 = make_pipeline(preprocessing.StandardScaler(),RandomForestClassifier(n_estimators = 10)) #
@@ -35,7 +35,7 @@ pipe1 = make_pipeline(preprocessing.StandardScaler(),RandomForestClassifier(n_es
 bag_model = BaggingClassifier(base_estimator=pipe1,n_estimators=100,
                                     oob_score=True,random_state=0,max_samples=0.8)
 
-bag_model.fit(x_train,y_train) #training the module
+bag_model.fit(X_train,y_train) #training the module
 # create an instance of the Flask class
 app = Flask(__name__)
 
@@ -68,9 +68,9 @@ def index():
         # use the model to generate predictions
         prediction = model.predict(data)
 
-        bg_score = bag_model.score(x_test, y_test) #bag_model.score(x_test,y_test) would calculate the mean accuracy of the BaggingClassifier model on the test data x_test and y_test
+        bg_score = bag_model.score(X_test, y_test) #bag_model.score(x_test,y_test) would calculate the mean accuracy of the BaggingClassifier model on the test data x_test and y_test
 
-        predicted = bag_model.predict(x_test) #would generate predicted labels for the test data x_test using the BaggingClassifier model that was trained earlier.
+        predicted = bag_model.predict(X_test) #would generate predicted labels for the test data x_test using the BaggingClassifier model that was trained earlier.
         report = classification_report(y_test, predicted)
 
 
