@@ -21,7 +21,7 @@ from sklearn.model_selection import cross_val_score
 model = joblib.load('bagging_classifier.joblib')
 
 ###we want to calculate the score and generate report
-df = pd.read_csv('./crop_recommendation_new.csv')
+df = pd.read_csv('./crop_recommendation.csv')
 x = df.drop(['label'], axis=1) # our independent variable; removing the label as part of our data and saving the rest as x
 y = df['label']
 
