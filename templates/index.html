@@ -47,9 +47,6 @@
                 <a class="nav-link" href="#report">Model Report</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#cm">Confusion Matrix</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="#about">About Us</a>
               </li>
             </ul>
@@ -57,7 +54,7 @@
         </div>
       </nav>
       <section>
-        <div class="container-lg">
+        <div class="container">
           <div class="row justify-content-center align-items-center pt-5 pb-5">
             <div class="col-md-5">
               <h1>
@@ -83,7 +80,7 @@
           </div>
         </div>
       </section>
-      <section class="pt-5 bg-warning-subtle">
+      <section class="container-sm pt-5 bg-warning-subtle">
         <div class="text-center">
           <h1 class="display-4 lead" id="prediction">Predict Your Crops</h1>
           <p class="lead mb-4">
@@ -95,7 +92,7 @@
           <div>{{ message }}</div>
           {% endif %}
         </div>
-        <form id="my-form"
+        <form id="my-form "
           action="{{url_for('index')}}"
           method="POST"
           class="border border-primary p-3 rounded shadow-lg"
@@ -170,9 +167,10 @@
 
       </section>
 
-      <section class="bg-light" id="score">
-        <div class="container-lg">
-          <h2 class="display-4 lead text-center pt-3">Model Score</h2>
+      <section class="justify-content-center text-center">
+
+            <div class="container-lg" id="score">
+              <p id="result" class="lead"> Model Score : </p>
               {% if bg_score %}
               <pre class="text-tiny lead text-center pb-5">
                 {{bg_score}}
@@ -182,9 +180,9 @@
          
       </section>
 
-      <section class="bg-warning-subtle" id="report">
-        <div class="container-lg">
-          <h2 class="display-4 lead text-center pt-3">Model Report</h2>
+      <section class="pt-3 bg-warning-subtle">   
+        <p id="result" class="fw-bold"> Model Report </p>
+        <div class="container-lg" id="report">
           {% if report %}
           <pre class="text-tiny lead text-center pb-5">
             {{report}}
@@ -193,17 +191,7 @@
         </div>
         </section>
 
-        <section class="bg-light" id="score">
-          <div class="container-lg">
-            <h2 class="display-4 lead text-center pt-3">Model Score</h2>
-                {% if cm %}
-                <pre class="text-tiny lead text-center pb-5">
-                  {{cm}}
-                </pre>
-                {% endif %}
-              </div>
-           
-        </section>
+        
 
 
       <section>

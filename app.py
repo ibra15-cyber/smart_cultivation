@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import joblib
-from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 import numpy as np
 from sklearn import model_selection
 from sklearn import preprocessing
@@ -11,7 +10,6 @@ from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 from sklearn.ensemble import BaggingClassifier
-from sklearn.metrics import mean_absolute_error, mean_squared_error, make_scorer
 import warnings
 warnings.filterwarnings('ignore')
 from sklearn.model_selection import cross_val_score
@@ -20,23 +18,10 @@ from sklearn.model_selection import cross_val_score
 # load the trained model
 model = joblib.load('bagging_classifier.joblib')
 
-###we want to calculate the score and generate report
-df = pd.read_csv('./Crop_recommendation.csv')
-X = df.drop(['label'], axis=1) # our independent variable; removing the label as part of our data and saving the rest as x
-y = df['label']
+# load the test data
+y_test = np.load('./y_test.npy', allow_pickle=True)
+X_test = np.load('./X_test.npy', allow_pickle=True)
 
-#splitting data into train and test
-X_train,X_test,y_train,y_test = model_selection.train_test_split(X,y)
-
-#piping it
-pipe1 = make_pipeline(preprocessing.StandardScaler(),RandomForestClassifier(n_estimators = 10)) #
-
-# BaggingClassifier trains multiple instances of a base estimator (such as a decision tree, k-nearest neighbors, or logistic regression) on different subsets of the training data and aggregates their predictions to make a final prediction.
-bag_model = BaggingClassifier(base_estimator=pipe1,n_estimators=100,
-                                    oob_score=True,random_state=0,max_samples=0.8)
-
-bag_model.fit(X_train,y_train) #training the module
-# create an instance of the Flask class
 app = Flask(__name__)
 
 # define a route for handling HTTP GET and POST requests to the root URL ('/')
@@ -64,21 +49,23 @@ def index():
         data = pd.DataFrame({'N': [N], 'P': [P], 'K': [K],
                              'temperature': [temperature], 'humidity': [humidity],
                              'ph': [ph], 'rainfall': [rainfall]})
+        
+        y_pred = model.predict(X_test)
 
         # use the model to generate predictions
         prediction = model.predict(data)
 
-        # added the below lines because i needed the score and classification report
+        # model accuracy
+        # accuracy = accuracy_score(y_test, y_pred)  #this too will work
 
-        bg_score = bag_model.score(X_test, y_test) #bag_model.score(x_test,y_test) would calculate the mean accuracy of the BaggingClassifier model on the test data x_test and y_test
+        accuracy = model.score(X_test, y_test) #true score
 
-        y_pred = bag_model.predict(X_test) #would generate predicted labels for the test data x_test using the BaggingClassifier model that was trained earlier.
-        report = classification_report(y_test, y_pred)
+        #model class report
+        class_report = classification_report(y_pred, y_test)
+        # print(class_report)
 
-        cm = confusion_matrix(y_test, y_pred)
 
-
-        return render_template('index.html', prediction=prediction, report=report, bg_score=bg_score, cm=cm, scroll=True)
+        return render_template('index.html', prediction=prediction, report=class_report, bg_score=accuracy, scroll=True)
 
     # if the request is a GET request, just render the template without any data
     message = 'Please fill out the form below to generate a prediction.'
